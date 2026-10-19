@@ -310,6 +310,10 @@ input[type=checkbox] {
 .tools label {
   white-space:nowrap
 }
+.review-badge {
+  color:#b6654b;
+  white-space:nowrap
+}
 .map-area {
   display:flex;
   position:relative;

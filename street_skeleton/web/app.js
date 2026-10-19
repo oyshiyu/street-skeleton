@@ -43,6 +43,8 @@ function load(data) {
   if (data.stats.review_points) notes.push(`${data.stats.review_points} 处桥隧连接待核查，已标红`);
   if (data.stats.incomplete_ways_skipped) notes.push(`${data.stats.incomplete_ways_skipped} 条道路因下载缺少节点而跳过`);
   $('review-note').textContent = notes.join('；');
+  $('review-badge').hidden = !data.stats.review_points;
+  $('review-badge').textContent = `${data.stats.review_points} 处待核查`;
   if (!window.PRELOADED) $('exports').hidden = false;
   setMode(state.mode);
 }
@@ -97,7 +99,7 @@ function draw(canvas, source) {
   if (!source && $('junctions').checked) {
     context.fillStyle='#d58153';
     context.beginPath();
-    const radius=state.scale > .5 ? 2.5 : 1.5;
+    const radius=Math.max(.5,Math.min(2.5,state.scale*4));
     for (const [x,y] of state.data.intersections) {
       const [a,b]=project(x,y,w,h);
       if (a < -5 || a > w+5 || b < -5 || b > h+5) continue;
@@ -109,7 +111,7 @@ function draw(canvas, source) {
     context.strokeStyle='#c45242'; context.lineWidth=2;
     for (const [x,y] of state.data.review) {
       const [a,b]=project(x,y,w,h);
-      context.beginPath(); context.arc(a,b,6,0,Math.PI*2); context.stroke();
+      context.beginPath(); context.arc(a,b,Math.max(2.5,Math.min(6,state.scale*8)),0,Math.PI*2); context.stroke();
     }
   }
 }

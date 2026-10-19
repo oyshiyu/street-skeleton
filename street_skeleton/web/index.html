@@ -44,7 +44,7 @@
     <section class="workspace" aria-label="道路地图">
       <div class="toolbar">
         <div class="tabs" role="group" aria-label="地图模式"><button class="active" data-mode="compare">原图 / 骨架</button><button data-mode="result">道路骨架</button><button data-mode="source">原始道路</button></div>
-        <div class="tools"><label><input id="junctions" type="checkbox" checked>交叉点</label><button id="fit" aria-label="显示全图">全图 ↗</button></div>
+        <div class="tools"><span id="review-badge" class="review-badge" hidden></span><label><input id="junctions" type="checkbox" checked>交叉点</label><button id="fit" aria-label="显示全图">全图 ↗</button></div>
       </div>
       <div class="map-area" id="map-area">
         <div class="empty" id="empty"><svg viewBox="0 0 240 180" aria-hidden="true"><path d="M10 40h90l40 55h90M100 10v30l-40 65v65M10 105h50l80-10v75M185 10v50l-45 35M60 105h-30v65M140 140h90"/><circle cx="100" cy="40" r="6"/><circle cx="60" cy="105" r="6"/><circle cx="140" cy="95" r="6"/></svg><h2>从一座城市开始</h2><p>导入城市数据，查看道路骨架</p></div>
