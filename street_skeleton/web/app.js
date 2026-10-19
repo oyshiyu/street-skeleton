@@ -9,6 +9,10 @@ let pendingFrame = false;
 function status(message, error=false, busy=false) {
   $('status').textContent = message;
   $('status').className = 'status' + (error ? ' error' : '') + (busy ? ' busy' : '');
+  if (!state.data) {
+    $('empty').querySelector('h2').textContent = busy ? '正在生成道路骨架' : '从一座城市开始';
+    $('empty').querySelector('p').textContent = busy ? message : '导入城市数据，查看道路骨架';
+  }
 }
 
 function setBusy(busy) {
@@ -27,6 +31,7 @@ function prepare(paths) {
 }
 
 function load(data) {
+  document.body.classList.add('has-result');
   state.data = {...data, source:prepare(data.source), roads:prepare(data.roads)};
   $('empty').hidden = true;
   $('metrics').hidden = false;

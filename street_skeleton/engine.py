@@ -191,7 +191,8 @@ def process(extract, tolerance=8, progress=lambda message: None):
     anchors = grade_anchors(source)
     strata, review = {}, []
     for level, subset in source.groupby("level", sort=True):
-        progress(f"处理层级 {level} · {len(subset):,} 条原始道路")
+        category = "地面道路" if level == 0 else "桥隧与分层道路"
+        progress(f"合并{category} · {len(subset):,} 条")
         geometries = merge_open_carriageways(subset)
         frame = gpd.GeoDataFrame(geometry=geometries, crs=source.crs)
         with small_network_support(), warnings.catch_warnings():

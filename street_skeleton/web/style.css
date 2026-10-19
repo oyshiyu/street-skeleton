@@ -68,7 +68,8 @@ header {
 main {
   display:grid;
   grid-template-columns:312px minmax(0,1fr);
-  min-height:calc(100dvh - 76px)
+  height:calc(100dvh - 76px);
+  min-height:600px
 }
 aside {
   padding:36px 28px 20px;
@@ -76,7 +77,8 @@ aside {
   display:flex;
   flex-direction:column;
   gap:0;
-  background:#fff
+  background:#fff;
+  overflow-y:auto
 }
 .eyebrow {
   font-size:9px;
@@ -262,14 +264,16 @@ input[type=checkbox] {
   display:flex;
   flex-direction:column;
   min-width:0;
-  padding:23px 24px 0
+  padding:23px 24px 0;
+  overflow:hidden
 }
 .toolbar {
   display:flex;
   justify-content:space-between;
   align-items:center;
   margin-bottom:18px;
-  gap:12px
+  gap:12px;
+  flex-shrink:0
 }
 .tabs {
   display:flex;
@@ -310,7 +314,7 @@ input[type=checkbox] {
   display:flex;
   position:relative;
   flex:1;
-  min-height:520px;
+  min-height:0;
   border:1px solid var(--line);
   border-radius:10px;
   overflow:hidden;
@@ -438,7 +442,8 @@ input[type=checkbox] {
   gap:10px;
   padding:12px 2px 13px;
   font-size:9px;
-  color:#91a095
+  color:#91a095;
+  flex-shrink:0
 }
 .map-footer a {
   color:#7b8d80
@@ -465,6 +470,21 @@ input[type=checkbox] {
 }
 .preview .intro {
   margin-bottom:0
+}
+.has-result h1 {
+  font-size:25px;
+  margin-top:12px
+}
+.has-result .intro {
+  margin-bottom:16px
+}
+.has-result .upload {
+  min-height:64px
+}
+.has-result .upload-icon,
+.has-result .upload > span:last-of-type,
+.has-result .hint {
+  display:none
 }
 [hidden] {
   display:none!important
@@ -513,11 +533,14 @@ input[type=checkbox] {
     display:none
   }
   main {
-    display:block
+    display:block;
+    height:auto;
+    min-height:0
   }
   aside {
     border-right:0;
-    border-bottom:1px solid var(--line)
+    border-bottom:1px solid var(--line);
+    overflow:visible
   }
   h1 {
     font-size:27px
