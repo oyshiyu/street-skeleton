@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="street-token" content="__TOKEN__">
+  <title>Street Skeleton</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 9h11v14h13M15 4v24M4 23h11M26 4v5H15"/><circle cx="15" cy="9" r="3"/><circle cx="15" cy="23" r="3"/></svg><span>Street Skeleton</span></div>
+    <span class="header-note">城市道路骨架</span>
+  </header>
+  <main>
+    <aside>
+      <div class="eyebrow">OPENSTREETMAP → CENTERLINES</div>
+      <h1>一条道路，<br>一条中心线。</h1>
+      <p class="intro">保留街巷与交叉点，合并道路的平行通道。</p>
+      <section id="import-panel">
+        <a class="source-link" href="https://extract.bbbike.org/" target="_blank" rel="noopener">下载城市数据 <span>BBBike ↗</span></a>
+        <p class="hint">搜索城市并框选范围，格式选择 <b>Protocolbuffer (PBF)</b>。</p>
+        <label class="upload" id="drop-zone">
+          <span class="upload-icon">＋</span><strong id="file-label">选择 .osm.pbf 文件</strong><span>或拖放到这里</span>
+          <input id="file" type="file" accept=".pbf">
+        </label>
+        <label class="range-label" for="tolerance">交叉点合并距离 <b><span id="tolerance-value">8</span> m</b></label>
+        <input id="tolerance" type="range" min="1" max="20" value="8">
+        <button class="primary" id="run" disabled>提取道路骨架 <span>→</span></button>
+        <p class="status" id="status" role="status" aria-live="polite">文件仅在本机处理</p>
+      </section>
+      <section class="metrics" id="metrics" hidden>
+        <div><span>道路</span><strong id="road-count">—</strong></div>
+        <div><span>交叉点</span><strong id="junction-count">—</strong></div>
+        <div><span>总长度</span><strong id="length">—</strong></div>
+      </section>
+      <section id="exports" hidden>
+        <button class="primary" data-download="street-skeleton.zip">下载全部结果 <span>↓</span></button>
+        <div class="export-links"><button data-download="street-skeleton.gpkg">GeoPackage</button><button data-download="map.html">离线地图</button></div>
+      </section>
+      <p id="review-note" class="review-note" hidden></p>
+      <div class="aside-footer">步行街 · 巷道 · 无向连接</div>
+    </aside>
+    <section class="workspace" aria-label="道路地图">
+      <div class="toolbar">
+        <div class="tabs" role="group" aria-label="地图模式"><button class="active" data-mode="compare">原图 / 骨架</button><button data-mode="result">道路骨架</button><button data-mode="source">原始道路</button></div>
+        <div class="tools"><label><input id="junctions" type="checkbox" checked>交叉点</label><button id="fit" aria-label="显示全图">全图 ↗</button></div>
+      </div>
+      <div class="map-area" id="map-area">
+        <div class="empty" id="empty"><svg viewBox="0 0 240 180" aria-hidden="true"><path d="M10 40h90l40 55h90M100 10v30l-40 65v65M10 105h50l80-10v75M185 10v50l-45 35M60 105h-30v65M140 140h90"/><circle cx="100" cy="40" r="6"/><circle cx="60" cy="105" r="6"/><circle cx="140" cy="95" r="6"/></svg><h2>从一座城市开始</h2><p>导入城市数据，查看道路骨架</p></div>
+        <div class="pane" id="source-pane"><span class="pane-label"><i class="dot source-dot"></i>原始道路</span><canvas id="source-map" aria-label="原始道路地图"></canvas></div>
+        <div class="pane" id="result-pane"><span class="pane-label"><i class="dot result-dot"></i>道路骨架</span><canvas id="result-map" aria-label="道路骨架地图"></canvas></div>
+        <div class="tooltip" id="tooltip" hidden></div>
+        <div class="zoom"><button id="zoom-in" aria-label="放大">＋</button><button id="zoom-out" aria-label="缩小">−</button></div>
+        <div class="scale" id="scale" hidden></div>
+      </div>
+      <footer class="map-footer"><span id="map-hint">拖动平移 · 滚轮缩放</span><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors · ODbL</a></footer>
+    </section>
+  </main>
+  <script src="/app.js" defer></script>
+</body>
+</html>

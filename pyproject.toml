@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "street-skeleton"
+version = "0.1.0"
+description = "City street centerlines and junctions from OpenStreetMap extracts"
+requires-python = ">=3.11"
+dependencies = [
+  "geopandas>=1.1,<2",
+  "shapely>=2.1,<3",
+  "networkx>=3.4,<4",
+  "osmium>=4.0,<5",
+  "neatnet==0.1.6",
+]
+
+[project.scripts]
+street-skeleton = "street_skeleton.__main__:main"
+
+[tool.setuptools.package-data]
+street_skeleton = ["web/*"]
