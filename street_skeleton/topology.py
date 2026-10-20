@@ -72,9 +72,13 @@ def build_graph(strata, anchors, crs):
     def token(a, b, edge_key):
         return frozenset((a, b)), edge_key
 
-    starts = [node for node in graph if graph.degree(node) != 2]
+    def stop(node):
+        return graph.degree(node) != 2 or len({level for _, _, data in graph.edges(node, data=True)
+                                              for level in data['levels']}) > 1
+
+    starts = [node for node in graph if stop(node)]
     for component in nx.connected_components(graph):
-        if all(graph.degree(node) == 2 for node in component):
+        if not any(stop(node) for node in component):
             starts.append(min(component))
     for start in starts:
         for _, current, edge_key, data in graph.edges(start, keys=True, data=True):
@@ -86,7 +90,7 @@ def build_graph(strata, anchors, crs):
             if math.dist(coords[0], start[:2]) > math.dist(coords[-1], start[:2]):
                 coords.reverse()
             levels = set(data["levels"])
-            while graph.degree(current) == 2 and current != start:
+            while not stop(current) and current != start:
                 options = [(v, k, d) for _, v, k, d in graph.edges(current, keys=True, data=True)
                            if token(current, v, k) not in visited]
                 if not options:

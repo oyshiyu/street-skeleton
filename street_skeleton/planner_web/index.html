@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="cable-token" content="__TOKEN__"><title>电缆沿路选线</title><link rel="stylesheet" href="/planner/style.css"></head>
+<body>
+<header><div class="brand"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M4 20h8V8h12M12 14h10"/><circle cx="4" cy="20" r="2.5"/><circle cx="24" cy="8" r="2.5"/></svg><div>电缆沿路选线<small id="city-name">城市路网</small></div></div><a href="/">导入城市 ↗</a></header>
+<main>
+<aside aria-label="选点与路线结果">
+  <div class="intro"><p class="eyebrow">沿道路规划 · 长度估算</p><h1>在地图上选两个点</h1><p>选起点与终点，垂直接入周边道路，自动比较整条线路总长度。</p></div>
+  <div class="endpoints">
+    <section class="endpoint" id="start-card"><div class="endpoint-title"><span class="letter start">A</span><h2>起点</h2><button id="repick-start" class="text-button">重选</button></div><p id="start-label">点击地图选择起点</p><select id="start-channel" aria-label="起点接入通道" hidden></select><small id="start-hint"></small></section>
+    <section class="endpoint" id="end-card"><div class="endpoint-title"><span class="letter end">B</span><h2>终点</h2><button id="repick-end" class="text-button">重选</button></div><p id="end-label">接着点击地图选择终点</p><select id="end-channel" aria-label="终点接入通道" hidden></select><small id="end-hint"></small></section>
+  </div>
+  <div class="actions"><button id="swap">交换起终点</button><button id="clear">清除路线</button></div>
+  <div id="status" role="status" aria-live="polite">道路通道载入中…</div>
+  <section class="result" id="result" aria-label="路线长度" hidden><div class="result-label">规划总长度</div><div class="total" id="total">—</div><dl><div><dt>沿路通道</dt><dd id="road-length">—</dd></div><div><dt>起点接入</dt><dd id="start-access">—</dd></div><div><dt>终点接入</dt><dd id="end-access">—</dd></div></dl><p class="access-note">仅接入所在区域周边道路，垂直接入段不能先碰到其他道路。接入段按平面垂直距离估算，未核查建筑、水体等障碍，未含竖向段与预留量。</p><div id="route-notes"></div><div class="result-actions"><button id="fit-route">查看整条路线</button><button id="export">导出路线 ↓</button></div></section>
+  <button class="demo" id="demo">试算示例路线 ↗</button>
+  <div class="method-note">使用整理后的无向道路通道，不受车辆单行限制。宽路按一个空间通道估算；桥隧保留原层级，交叉不自动连通。<span id="network-note"></span></div>
+</aside>
+<section class="map-area" aria-label="交互地图">
+  <canvas id="map" aria-label="点击选择起点与终点的道路地图"></canvas>
+  <div class="map-toolbar"><select id="view" aria-label="地图范围"><option value="city">城市路网</option></select><label><input id="basemap" type="checkbox" checked>底图</label></div>
+  <div class="instruction" id="instruction">载入道路通道…</div>
+  <div class="map-controls"><button id="zoom-in" aria-label="放大地图">＋</button><button id="zoom-out" aria-label="缩小地图">−</button><button id="fit" aria-label="重置地图范围">↗</button></div>
+  <div id="tile-status" role="status" hidden></div><div class="scale" id="scale"></div>
+  <a class="copyright" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors · ODbL</a>
+</section>
+</main><script src="/planner/app.js" defer></script></body></html>

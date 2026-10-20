@@ -18,3 +18,4 @@ jobs:
         with:
           node-version: '22'
       - run: node --check street_skeleton/web/app.js
+      - run: node --check street_skeleton/planner_web/app.js

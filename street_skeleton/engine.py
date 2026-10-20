@@ -245,6 +245,8 @@ def export(result, directory):
         frame.to_crs(4326).to_file(directory / f"{layer}.geojson", driver="GeoJSON")
     (directory / "metadata.json").write_text(json.dumps(result.stats, ensure_ascii=False, indent=2), encoding="utf-8")
     write_viewer(result, directory / "map.html")
+    from .cable import write_network
+    write_network(result, directory / "cable-network.json")
     files = list(directory.iterdir())
     with zipfile.ZipFile(directory / "street-skeleton.zip", "w", zipfile.ZIP_DEFLATED) as archive:
         for path in files:
@@ -256,6 +258,7 @@ def run(input_path, output_path, tolerance=8, progress=print):
     progress("读取 OSM 城市数据")
     extract = read_osm(input_path)
     result = process(extract, tolerance, progress)
+    result.stats["city_name"] = Path(input_path).name.removesuffix(".pbf").removesuffix(".osm")
     progress("保存地图与结果")
     export(result, output_path)
     return result

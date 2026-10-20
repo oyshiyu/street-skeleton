@@ -16,3 +16,6 @@ results/
 *.geojson
 *.zip
 *.log
+
+*.pkl
+*.json.gz
